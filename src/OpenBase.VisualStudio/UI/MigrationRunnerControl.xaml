@@ -5,7 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Migration Runner - Content to be implemented" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <ComboBox x:Name="ConnectionCombo" Width="200" IsEditable="True" Text="Select Connection..." Margin="0,0,5,0"/>
+        </StackPanel>
+
+        <GroupBox Grid.Row="1" Header="Migrations">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Migrate Up" Margin="5" Click="MigrateUp_Click"/>
+                <Button Content="Migrate Down" Margin="5" Click="MigrateDown_Click"/>
+                <Button Content="Dry Run" Margin="5" Click="DryRun_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Scaffolding">
+            <StackPanel>
+                <TextBox x:Name="OutputDirText" Text="./Models" Margin="5"/>
+                <Button Content="Run Scaffold" Margin="5" Click="Scaffold_Click"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </UserControl>

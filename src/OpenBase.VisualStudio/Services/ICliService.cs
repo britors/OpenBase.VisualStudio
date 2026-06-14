@@ -7,6 +7,7 @@ namespace OpenBase.VisualStudio.Services;
 public interface ICliService
 {
     Task<CliResult> ExecuteAsync(string arguments, CancellationToken cancellationToken = default);
+    Task ExecuteStreamingAsync(string arguments, Action<string> onOutput, CancellationToken cancellationToken = default);
     Task<bool> IsCliInstalledAsync();
 }
 

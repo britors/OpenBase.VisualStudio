@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.Shell;
+using OpenBase.VisualStudio.Infrastructure;
 using OpenBase.VisualStudio.Services;
 using OpenBase.VisualStudio.ToolWindows;
 using Task = System.Threading.Tasks.Task;
@@ -17,6 +18,7 @@ namespace OpenBase.VisualStudio;
 [ProvideToolWindow(typeof(ErDiagramWindow))]
 [ProvideToolWindow(typeof(MigrationRunnerWindow))]
 [ProvideToolWindow(typeof(MonitorWindow))]
+[ProvideOptionPage(typeof(OptionsPage), "OpenBase", "General", 0, 0, true)]
 public sealed class OpenBasePackage : AsyncPackage
 {
     public static IServiceProvider ServiceProvider { get; private set; }
@@ -44,5 +46,8 @@ public sealed class OpenBasePackage : AsyncPackage
         services.AddSingleton<ISqlService, SqlService>();
         services.AddSingleton<IHttpService, HttpService>();
         services.AddSingleton<IErService, ErService>();
+        services.AddSingleton<IMigrationService, MigrationService>();
+        services.AddSingleton<IScaffoldService, ScaffoldService>();
+        services.AddSingleton<IMonitorService, MonitorService>();
     }
 }

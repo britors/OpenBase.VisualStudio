@@ -1,0 +1,5 @@
+[$RootKey$\Packages\{6A7B8C9D-E0F1-4234-B567-C8D9E0F1A2B3}]
+@="OpenBase.VisualStudio.OpenBasePackage, OpenBase.VisualStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+"InprocServer32"="$WinDir$\System32\mscoree.dll"
+"Class"="OpenBase.VisualStudio.OpenBasePackage"
+"CodeBase"="$PackageFolder$\OpenBase.VisualStudio.dll"

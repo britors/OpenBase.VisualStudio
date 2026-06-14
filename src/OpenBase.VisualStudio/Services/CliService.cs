@@ -3,11 +3,20 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using OpenBase.VisualStudio.Infrastructure;
+using Microsoft.VisualStudio.Shell;
 
 namespace OpenBase.VisualStudio.Services;
 
-public class CliService(ILoggingService loggingService) : ICliService
+public class CliService(ILoggingService loggingService, IServiceProvider serviceProvider) : ICliService
 {
+    private string GetCliPath()
+    {
+        var package = serviceProvider as AsyncPackage;
+        var options = package?.GetDialogPage(typeof(OptionsPage)) as OptionsPage;
+        return options?.CliPath ?? "openbase";
+    }
+
     public async Task<CliResult> ExecuteAsync(string arguments, CancellationToken cancellationToken = default)
     {
         var result = new CliResult();
@@ -16,7 +25,7 @@ public class CliService(ILoggingService loggingService) : ICliService
             using var process = new Process();
             process.StartInfo = new ProcessStartInfo
             {
-                FileName = "openbase",
+                FileName = GetCliPath(),
                 Arguments = arguments,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -25,6 +34,7 @@ public class CliService(ILoggingService loggingService) : ICliService
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8
             };
+
 
             var outputBuilder = new StringBuilder();
             var errorBuilder = new StringBuilder();
@@ -60,6 +70,29 @@ public class CliService(ILoggingService loggingService) : ICliService
         }
 
         return result;
+    }
+
+    public async Task ExecuteStreamingAsync(string arguments, Action<string> onOutput, CancellationToken cancellationToken = default)
+    {
+        var process = new Process();
+        process.StartInfo = new ProcessStartInfo
+        {
+            FileName = GetCliPath(),
+            Arguments = arguments,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            StandardOutputEncoding = Encoding.UTF8,
+            StandardErrorEncoding = Encoding.UTF8
+        };
+
+        process.OutputDataReceived += (s, e) => { if (e.Data != null) onOutput(e.Data); };
+
+        process.Start();
+        process.BeginOutputReadLine();
+
+        await Task.Run(() => process.WaitForExit(), cancellationToken);
     }
 
     public async Task<bool> IsCliInstalledAsync()

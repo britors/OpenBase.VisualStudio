@@ -23,6 +23,13 @@ namespace OpenBase.VisualStudio.UI
             if (_webViewService != null)
             {
                 await _webViewService.InitializeAsync(EditorWebView, "monaco");
+
+                // Aguarda o CoreWebView2 estar pronto para enviar a mensagem de tema
+                EditorWebView.CoreWebView2.NavigationCompleted += (s, e) =>
+                {
+                    var isDark = Microsoft.VisualStudio.PlatformUI.VSColorTheme.GetThemedColor(Microsoft.VisualStudio.PlatformUI.EnvironmentColors.ToolWindowBackgroundColorKey).GetBrightness() < 0.5;
+                    _ = _webViewService.ExecuteScriptAsync(EditorWebView, $"window.setTheme('{ (isDark ? "dark" : "light") }')");
+                };
             }
             await LoadConnectionsAsync();
         }

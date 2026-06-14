@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        html, body, #container { width: 100%; height: 100%; margin: 0; padding: 0; background: white; }
+        #container { display: flex; justify-content: center; align-items: center; overflow: auto; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="graphDiv" style="color: #ccc; font-family: sans-serif;">Select a connection and click 'Generate Diagram'</div>
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+        window.renderDiagram = async function(code) {
+            const container = document.getElementById('graphDiv');
+            container.innerHTML = 'Rendering...';
+            try {
+                const { svg } = await mermaid.render('renderedGraph', code);
+                container.innerHTML = svg;
+            } catch (e) {
+                container.innerHTML = '<div style="color:red">Error rendering diagram: ' + e.message + '</div>';
+            }
+        };
+
+        window.addEventListener('message', event => {
+            if (event.data.type === 'render') {
+                window.renderDiagram(event.data.code);
+            }
+        });
+    </script>
+</body>
+</html>

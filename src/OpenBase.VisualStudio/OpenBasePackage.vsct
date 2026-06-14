@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/visualstudio/2005-10-18/commandtable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidOpenBasePackage">
+    <Menus>
+      <Menu guid="guidOpenBasePackageCmdSet" id="OpenBaseMenu" priority="0x700" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS"/>
+        <Strings>
+          <ButtonText>OpenBase</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <Group guid="guidOpenBasePackageCmdSet" id="OpenBaseGroup" priority="0x0600">
+        <Parent guid="guidOpenBasePackageCmdSet" id="OpenBaseMenu"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidOpenBasePackageCmdSet" id="cmdidSqlRunner" priority="0x0100" type="Button">
+        <Parent guid="guidOpenBasePackageCmdSet" id="OpenBaseGroup"/>
+        <Strings>
+          <ButtonText>SQL Runner</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenBasePackageCmdSet" id="cmdidHttpRunner" priority="0x0200" type="Button">
+        <Parent guid="guidOpenBasePackageCmdSet" id="OpenBaseGroup"/>
+        <Strings>
+          <ButtonText>HTTP Runner</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenBasePackageCmdSet" id="cmdidErDiagram" priority="0x0300" type="Button">
+        <Parent guid="guidOpenBasePackageCmdSet" id="OpenBaseGroup"/>
+        <Strings>
+          <ButtonText>ER Diagram</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenBasePackageCmdSet" id="cmdidMigrationRunner" priority="0x0400" type="Button">
+        <Parent guid="guidOpenBasePackageCmdSet" id="OpenBaseGroup"/>
+        <Strings>
+          <ButtonText>Migration Runner</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenBasePackageCmdSet" id="cmdidMonitor" priority="0x0500" type="Button">
+        <Parent guid="guidOpenBasePackageCmdSet" id="OpenBaseGroup"/>
+        <Strings>
+          <ButtonText>Monitor</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidOpenBasePackage" value="{6A7B8C9D-E0F1-4234-B567-C8D9E0F1A2B3}" />
+
+    <GuidSymbol name="guidOpenBasePackageCmdSet" value="{7B8C9D0E-F1A2-4345-C678-D9E0F1A2B3C4}">
+      <IDSymbol name="OpenBaseMenu" value="0x1000" />
+      <IDSymbol name="OpenBaseGroup" value="0x1100" />
+      <IDSymbol name="cmdidSqlRunner" value="0x0100" />
+      <IDSymbol name="cmdidHttpRunner" value="0x0200" />
+      <IDSymbol name="cmdidErDiagram" value="0x0300" />
+      <IDSymbol name="cmdidMigrationRunner" value="0x0400" />
+      <IDSymbol name="cmdidMonitor" value="0x0500" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

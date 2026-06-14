@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Vsix xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" Version="1.0.0">
-  <Identifier Id="OpenBase.VisualStudio.1234">
-    <Name>OpenBase</Name>
-    <Author>OpenBase</Author>
-    <Version>1.0</Version>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="OpenBase.VisualStudio.1234" Version="1.0" Language="en-US" Publisher="OpenBase" />
+    <DisplayName>OpenBase</DisplayName>
     <Description xml:space="preserve">OpenBase extension for Visual Studio - SQL, HTTP, Diagrams and more.</Description>
-    <Locale>1033</Locale>
-    <MoreInfoUrl>https://github.com/OpenBase/OpenBase</MoreInfoUrl>
-    <Icon>Resources\Icon.png</Icon>
-    <PreviewImage>Resources\Preview.png</PreviewImage>
     <Tags>sql, http, rest, database, migration</Tags>
-    <GettingStartedGuide>https://github.com/OpenBase/OpenBase</GettingStartedGuide>
-  </Identifier>
-  <Content>
-    <VsPackage>
-      <AssetType>Microsoft.VisualStudio.VsPackage</AssetType>
-      <Path>OpenBase.VisualStudio.dll</Path>
-    </VsPackage>
-  </Content>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,18.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
   <Dependencies>
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
   </Dependencies>
   <Prerequisites>
     <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
   </Prerequisites>
-</Vsix>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="OpenBase.VisualStudio" Path="|%CurrentProject%;AssemblyName|" />
+  </Assets>
+</PackageManifest>
